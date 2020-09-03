@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #5f6972;
 }
 
 code {
@@ -21,4 +22,25 @@ code {
   color: #8b97d6;
   background-color: #f0f0f0;
   text-align: center;
+}
+ 
+#intro{
+  margin: 1rem 2rem;
+  text-align: center;
+}
+
+/*BUTTON*/
+#buttonWrapper{
+  margin-top: 2rem;
+  text-align: center;
+}
+#beginButton{
+  padding: 1rem 2rem;
+  background-color: #8c95ca;
+  color: #f7f7f7;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-style: solid;
+  border-color: #5d689c;
+  border-radius: 1rem;
 }
