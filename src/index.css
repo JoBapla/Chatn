@@ -72,7 +72,9 @@ body{
   background-color: #f7f7f7;
   border: solid #e8e8e8 1.5px;
   overflow: auto;
-
+  display: flex;
+  flex-direction: column-reverse;
+  align-content: flex-end;
 }
 
 #message-area-container{

@@ -15,6 +15,7 @@ app.use(express.static("public"));
 //set up socekt connection to server
 var io= socket(server);
 
+
 io.on("connection", function(socket){
     //says twice figure out
     console.log("connected");

@@ -4,12 +4,12 @@ import "./index.css";
 import "./grid.css";
 import "./index.js"
 
-function Send(){
-    
+function Send(props){
+
 
     return(
-    //send socket data to server
-    console.log()
+     
+    <p>{props.response}</p>
            
     )
 

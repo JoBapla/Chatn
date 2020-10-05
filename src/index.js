@@ -1,16 +1,33 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import ReactDOM from 'react-dom'
 import SocketIOClient from "socket.io-client"
 import "./index.css";
 import "./grid.css";
-import "./chat.js"
+
 
 
 const ENDPOINT = "http://127.0.0.1:4000";
 const socket = SocketIOClient(ENDPOINT);
 
+
 function Video(){
+    let [url,setURL]=useState("")
     
+    let [chat, setChat]=useState([])
+    
+    useEffect(() => {
+      socket.on("chat", data => {
+      
+        setChat([data, ...chat])
+        console.log(chat)
+        
+        if(data.includes("https://www.youtube.com/watch?v=")){
+          var split=data.split("=");
+          var url="https://www.youtube.com/embed/"+split[1]+"?autoplay=1"
+          setURL(url)
+        }
+      });
+    },[chat]);
 
     let [message, changeMessage]= useState("")
 
@@ -22,19 +39,19 @@ function Video(){
 
     function sendKey(event){
       if(event.key==='Enter'){
-        console.log(message)
+        
         socket.emit("chat", {
           message: message
         });
-        // socket.on("chat", function(data){
-        //   console.log(data.message)
-        // })
+        
       }
     }
 
     function sendButton(event){
-     console.log(message)
-    }    
+      socket.emit("chat", {
+        message: message
+      });
+    }   
    
   
   
@@ -51,7 +68,7 @@ function Video(){
         </div>
         
         <div id="iframe-container">          
-            <iframe id="video-player" src="" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+            <iframe id="video-player" title="youtube" src={url} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </div>
       
       </div>
@@ -59,6 +76,8 @@ function Video(){
             
             <div id="chat-container">
                 <div id="chat">
+                  
+                  {chat.map(chatMessage=>{return <p>{chatMessage}</p>})}
                
                 </div>   
             
@@ -84,7 +103,7 @@ function Video(){
 function App(){
   return(
     <>
-    <Video/>
+    <Video/>,
     </>
   );
 }
